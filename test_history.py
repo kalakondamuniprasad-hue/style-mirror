@@ -1,18 +1,20 @@
 import requests
 
-BASE_URL = "http://127.0.0.1:8000"
+if __name__ == "__main__":
 
-token = input("Paste your Supabase access token: ").strip()
+    BASE_URL = "http://127.0.0.1:8000"
 
-headers = {
-    "Authorization": f"Bearer {token}"
-}
+    token = input("Paste your Supabase access token: ").strip()
 
-response = requests.get(
-    f"{BASE_URL}/api/history/",
-    headers=headers
-)
+    headers = {
+        "Authorization": f"Bearer {token}"
+    }
 
-print("\nHISTORY STATUS:", response.status_code)
-print("HISTORY RESPONSE:")
-print(response.text)
+    response = requests.get(
+        f"{BASE_URL}/api/history/",
+        headers=headers
+    )
+
+    print("\nHISTORY STATUS:", response.status_code)
+    print("HISTORY RESPONSE:")
+    print(response.text)

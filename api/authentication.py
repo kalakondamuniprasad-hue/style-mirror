@@ -13,20 +13,61 @@ from .models import UserProfile
 load_dotenv()
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_ISSUER = f"{SUPABASE_URL}/auth/v1" if SUPABASE_URL else None
+SUPABASE_JWKS_URL = (
+    f"{SUPABASE_ISSUER}/.well-known/jwks.json"
+    if SUPABASE_ISSUER
+    else None
+)
 
-if not SUPABASE_URL:
-    raise RuntimeError("SUPABASE_URL is not configured in .env")
+jwks_client = PyJWKClient(SUPABASE_JWKS_URL) if SUPABASE_JWKS_URL else None
+
+LOCAL_DEMO_TOKEN = "stylemirror-demo-token"
+LOCAL_DEMO_EMAIL = "demo@stylemirror.local"
+LOCAL_DEMO_USER_ID = "local-demo-user"
 
 
-SUPABASE_ISSUER = f"{SUPABASE_URL}/auth/v1"
-SUPABASE_JWKS_URL = f"{SUPABASE_ISSUER}/.well-known/jwks.json"
+class LocalDemoAuthentication(BaseAuthentication):
 
-jwks_client = PyJWKClient(SUPABASE_JWKS_URL)
+    def authenticate(self, request):
+        auth_header = request.headers.get("Authorization")
+
+        if not auth_header:
+            return None
+
+        parts = auth_header.split()
+
+        if len(parts) != 2 or parts[0].lower() != "bearer":
+            raise AuthenticationFailed(
+                "Invalid Authorization header."
+            )
+
+        token = parts[1]
+
+        if token not in {LOCAL_DEMO_TOKEN, "demo-local", "local-demo", "demo"}:
+            return None
+
+        user_profile, created = UserProfile.objects.get_or_create(
+            supabase_user_id=LOCAL_DEMO_USER_ID,
+            defaults={
+                "email": LOCAL_DEMO_EMAIL,
+                "name": "Demo User",
+            },
+        )
+
+        if not created and user_profile.email != LOCAL_DEMO_EMAIL:
+            user_profile.email = LOCAL_DEMO_EMAIL
+            user_profile.save(update_fields=["email"])
+
+        return (user_profile, None)
 
 
 class SupabaseAuthentication(BaseAuthentication):
 
     def authenticate(self, request):
+
+        if not SUPABASE_URL or not jwks_client:
+            return None
 
         auth_header = request.headers.get("Authorization")
 

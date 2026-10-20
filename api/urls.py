@@ -16,7 +16,8 @@ from .views import (
 )
 
 from .style_api import (
-    create_style_profile_api
+    create_style_profile_api,
+    style_match_api,
 )
 
 from .apply_style_api import (
@@ -101,6 +102,11 @@ urlpatterns = [
     path(
         "generate-style-profile/",
         create_style_profile_api
+    ),
+
+    path(
+        "style-match/",
+        style_match_api
     ),
 
     path(

@@ -1,20 +1,22 @@
 import requests
 
-BASE_URL = "http://127.0.0.1:8000"
+if __name__ == "__main__":
 
-token = input("Paste your Supabase access token: ").strip()
+    BASE_URL = "http://127.0.0.1:8000"
 
-headers = {
-    "Authorization": f"Bearer {token}"
-}
+    token = input("Paste your Supabase access token: ").strip()
 
-PROJECT_ID = 4
+    headers = {
+        "Authorization": f"Bearer {token}"
+    }
 
-response = requests.post(
-    f"{BASE_URL}/api/projects/{PROJECT_ID}/regenerate/",
-    headers=headers
-)
+    PROJECT_ID = 4
 
-print("\nREGENERATION STATUS:", response.status_code)
-print("REGENERATION RESPONSE:")
-print(response.text)
+    response = requests.post(
+        f"{BASE_URL}/api/projects/{PROJECT_ID}/regenerate/",
+        headers=headers
+    )
+
+    print("\nREGENERATION STATUS:", response.status_code)
+    print("REGENERATION RESPONSE:")
+    print(response.text)

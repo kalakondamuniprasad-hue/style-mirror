@@ -8,6 +8,13 @@ from api.views import style_mirror_home
 
 urlpatterns = [
 
+    # STYLE MIRROR workspaces
+    path("photo-editor", style_mirror_home, name="photo_editor"),
+    path("video-editor", style_mirror_home, name="video_editor"),
+    path("photo-restyle", style_mirror_home, name="photo_restyle"),
+    path("video-restyle", style_mirror_home, name="video_restyle"),
+    path("profile", style_mirror_home, name="profile"),
+
     # STYLE MIRROR homepage
     path("", style_mirror_home),
 

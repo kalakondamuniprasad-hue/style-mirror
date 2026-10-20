@@ -209,12 +209,12 @@ async function generateStyle() {
         // ==================================
 
         status.innerText =
-            "Creating STYLE MIRROR project...";
+            "Creating Stylora project...";
 
 
         const projectData = {
 
-            name: "STYLE MIRROR Project",
+            name: "Stylora Project",
 
             original_image_url:
                 uploadData.image,
@@ -321,7 +321,7 @@ async function generateStyle() {
 
 
         status.innerText =
-            "STYLE MIRROR editing completed!";
+            "Stylora editing completed!";
 
 
         // Scroll to result

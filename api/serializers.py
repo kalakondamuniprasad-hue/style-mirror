@@ -133,17 +133,23 @@ class UploadedImageSerializer(serializers.ModelSerializer):
         if not obj.image:
             return None
 
+        if hasattr(obj.image, "url") and obj.image.url:
+            return obj.image.url
+
         image_path = obj.image.name
 
         if not image_path:
             return None
 
-        return (
-            supabase
-            .storage
-            .from_(BUCKET_NAME)
-            .get_public_url(image_path)
-        )
+        if supabase is not None:
+            return (
+                supabase
+                .storage
+                .from_(BUCKET_NAME)
+                .get_public_url(image_path)
+            )
+
+        return f"http://127.0.0.1:8000/media/{image_path.lstrip('/')}"
 
 
 # =========================================================

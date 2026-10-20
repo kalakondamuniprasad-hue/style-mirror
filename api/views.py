@@ -1,6 +1,8 @@
 import os
 import tempfile
+import uuid
 
+from django.conf import settings
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import ValidationError
@@ -240,8 +242,6 @@ class UploadedImageViewSet(viewsets.ModelViewSet):
             # Generate unique storage path
             # -------------------------------------------------
 
-            import uuid
-
             filename = os.path.basename(
                 uploaded_file.name
             )
@@ -264,24 +264,22 @@ class UploadedImageViewSet(viewsets.ModelViewSet):
 
                 file_data = file.read()
 
-            # -------------------------------------------------
-            # Upload to Supabase
-            # -------------------------------------------------
-
-            supabase.storage.from_(
-                BUCKET_NAME
-            ).upload(
-                storage_path,
-                file_data,
-                {
-                    "content-type":
-                    uploaded_file.content_type
-                    or "image/jpeg",
-
-                    "upsert":
-                    "true",
-                }
-            )
+            if supabase:
+                supabase.storage.from_(
+                    BUCKET_NAME
+                ).upload(
+                    storage_path,
+                    file_data,
+                    {
+                        "content-type": uploaded_file.content_type or "image/jpeg",
+                        "upsert": "true",
+                    }
+                )
+            else:
+                local_path = os.path.join(settings.MEDIA_ROOT, storage_path)
+                os.makedirs(os.path.dirname(local_path), exist_ok=True)
+                with open(local_path, "wb") as local_file:
+                    local_file.write(file_data)
 
             # -------------------------------------------------
             # Create database record
@@ -297,12 +295,14 @@ class UploadedImageViewSet(viewsets.ModelViewSet):
             # Public URL
             # -------------------------------------------------
 
-            image_url = (
-                supabase
-                .storage
-                .from_(BUCKET_NAME)
-                .get_public_url(storage_path)
-            )
+            if supabase:
+                image_url = supabase.storage.from_(
+                    BUCKET_NAME
+                ).get_public_url(storage_path)
+            else:
+                image_url = request.build_absolute_uri(
+                    uploaded_image.image.url
+                )
 
             return Response(
                 {
@@ -512,6 +512,9 @@ def history_api(request):
             len(history),
 
         "history":
+            history,
+
+        "projects":
             history,
     })
 

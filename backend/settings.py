@@ -34,6 +34,8 @@ DEBUG = os.getenv("DEBUG", "True").lower() == "true"
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
+    "0.0.0.0",
+    "testserver",
     "10.230.208.35",
 ]
 
@@ -261,6 +263,7 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
 
         "api.authentication.SupabaseAuthentication",
+        "api.authentication.LocalDemoAuthentication",
 
     ],
 
@@ -292,3 +295,9 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
 
     SECURE_SSL_REDIRECT = True
+
+    SECURE_HSTS_SECONDS = int(os.getenv("SECURE_HSTS_SECONDS", "31536000"))
+
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+    SECURE_HSTS_PRELOAD = True

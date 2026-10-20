@@ -1,0 +1,23 @@
+﻿api\views.py                                      531 lines      12889 bytes
+api\urls.py                                       121 lines       2110 bytes
+api\models.py                                     279 lines       6237 bytes
+api\authentication.py                              89 lines       2497 bytes
+api\serializers.py                                195 lines       4378 bytes
+api\style_api.py                                  113 lines       3024 bytes
+api\apply_style_api.py                            566 lines      13327 bytes
+api\style_analyzer.py                             229 lines       5412 bytes
+api\supabase_storage.py                            78 lines       1844 bytes
+api\tests.py                                        3 lines         63 bytes
+backend\settings.py                               294 lines       6384 bytes
+backend\urls.py                                    28 lines        585 bytes
+api\templates\style_mirror\index.html              91 lines      24819 bytes
+api\templates\style_mirror\app.js                 635 lines      12832 bytes
+api\static\style_mirror\app.js                    148 lines      55142 bytes
+api\static\style_mirror\style.css                  31 lines      45539 bytes
+frontend\index.html                               251 lines       5785 bytes
+frontend\app.js                                   635 lines      12832 bytes
+frontend\style.css                                254 lines       3851 bytes
+style_editor.py                                   209 lines       5492 bytes
+get_token.py                                       25 lines        570 bytes
+requirements.txt                                   47 lines       1776 bytes
+ok

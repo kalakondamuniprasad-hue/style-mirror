@@ -1,12 +1,14 @@
 from api.style_analyzer import analyze_image
 
-image_path = r"C:\Users\DELL\Downloads\cute krishna.jpg"
+if __name__ == "__main__":
 
-style = analyze_image(image_path)
+    image_path = r"C:\Users\DELL\Downloads\cute krishna.jpg"
 
-print("\nSTYLE MIRROR AI IMAGE ANALYSIS")
-print("=" * 40)
+    style = analyze_image(image_path)
 
-for key, value in style.items():
-    print(f"\n{key}:")
-    print(value)
+    print("\nSTYLE MIRROR AI IMAGE ANALYSIS")
+    print("=" * 40)
+
+    for key, value in style.items():
+        print(f"\n{key}:")
+        print(value)

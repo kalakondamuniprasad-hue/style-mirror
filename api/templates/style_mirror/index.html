@@ -8,113 +8,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<title>STYLE MIRROR — AI Aesthetic Editor</title>
+<title>Stylora — AI Aesthetic Editor</title>
 
-<link rel="stylesheet" href="{% static 'style_mirror/style.css' %}">
+<link rel="stylesheet" href="{% static 'style_mirror/style.css' %}?v=20261002-auth2">
+<link rel="stylesheet" href="{% static 'style_mirror/dashboard.css' %}?v=20261013-dashboard">
 
 <!-- Supabase JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-```
-
 </head>
 
 <body>
 
-```
 <!-- =========================
      LOGIN / SIGN UP SCREEN
 ========================== -->
 
 <div id="authScreen" class="auth-screen">
+    <section class="auth-brand-panel">
+        <header class="auth-brand-header">
+            <a href="/" class="auth-brand-lockup" aria-label="Stylora home">
+                <span class="auth-brand-mark">✦</span>
+                <span><strong>Stylora</strong><small>AI Aesthetic Editor</small></span>
+            </a>
+            <span class="auth-header-caption">Edit <i>✦</i> Restyle <i>✦</i> Create</span>
+        </header>
 
-    <div class="auth-card">
+        <div class="auth-brand-content">
+            <span class="auth-brand-eyebrow">✦ AI-POWERED CREATIVE STUDIO</span>
+            <h1>Your style.<br><span>Mirrored.</span></h1>
+            <p>AI-powered photo and video editing for a more creative you.</p>
 
-        <div class="auth-logo">
-            <div class="brand-icon">✦</div>
-            <h1>STYLE MIRROR</h1>
+            <div class="auth-feature-row" aria-label="Stylora features">
+                <div><span>✧</span><strong>AI Edit</strong><small>Smart &amp; fast</small></div>
+                <div><span>◉</span><strong>Restyle</strong><small>New aesthetics</small></div>
+                <div><span>▣</span><strong>Photo &amp; Video</strong><small>All in one</small></div>
+            </div>
+
+            <div class="auth-showcase" aria-label="Stylora editing preview">
+                <span class="showcase-sparkle sparkle-one">✦</span>
+                <span class="showcase-sparkle sparkle-two">✧</span>
+                <article class="showcase-float showcase-before">
+                    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&amp;fit=crop&amp;w=520&amp;q=80" alt="Mountain landscape before editing">
+                    <span>Before</span>
+                </article>
+                <article class="showcase-main-card">
+                    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="A mountain landscape in the Stylora editor">
+                    <span class="showcase-ai-tag">✧ AI Restyle</span>
+                    <span class="showcase-divider"><i>‹ ›</i></span>
+                </article>
+                <article class="showcase-float showcase-after">
+                    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&amp;fit=crop&amp;w=520&amp;q=80" alt="Mountain landscape after style matching">
+                    <span>After</span>
+                </article>
+            </div>
+
+            <div class="auth-brand-footer">
+                <span>Edit<br><em>Without Limits</em></span>
+                <div><i>✧</i><strong>Professional tools</strong></div>
+                <div><i>ϟ</i><strong>AI powered</strong></div>
+                <div><i>♡</i><strong>Made for creators</strong></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="auth-form-panel">
+        <div class="auth-top-switch auth-tabs" data-selection="login">
+            <span id="authSwitchText">Don't have an account?</span>
+            <button id="loginTab" class="auth-tab hidden" type="button">Log in <span>→</span></button>
+            <button id="signupTab" class="auth-tab active" type="button">Sign up <span>→</span></button>
         </div>
 
-        <p class="auth-subtitle">
-            AI Aesthetic Matching Editor
-        </p>
+        <div class="auth-form-content">
+            <div class="auth-form-heading">
+                <span class="auth-mobile-brand"><span class="auth-brand-mark">✦</span> Stylora</span>
+                <h2 id="authHeading">Welcome back</h2>
+                <p id="authSubtitle">Log in to continue your creative journey<br class="desktop-break"> with Stylora.</p>
+            </div>
 
-        <div class="auth-tabs">
+            <form id="authForm">
+                <div id="nameGroup" class="input-group hidden">
+                    <label for="authName">Name</label>
+                    <div class="auth-input-wrap"><span aria-hidden="true">♙</span><input type="text" id="authName" placeholder="Your name" autocomplete="name"></div>
+                </div>
 
-            <button
-                id="loginTab"
-                class="auth-tab active"
-                type="button">
-                Login
-            </button>
+                <div class="input-group">
+                    <label for="authEmail">Email address</label>
+                    <div class="auth-input-wrap"><span aria-hidden="true">✉</span><input type="email" id="authEmail" placeholder="you@example.com" autocomplete="email" required></div>
+                </div>
 
-            <button
-                id="signupTab"
-                class="auth-tab"
-                type="button">
-                Sign Up
-            </button>
+                <div class="input-group">
+                    <label for="authPassword">Password</label>
+                    <div class="auth-input-wrap"><span aria-hidden="true">♙</span><input type="password" id="authPassword" placeholder="Enter your password" autocomplete="current-password" required><button type="button" id="togglePassword" class="password-visibility" aria-label="Show password">◉</button></div>
+                </div>
 
+                <div class="auth-form-options">
+                    <label class="remember-option"><input id="rememberMe" type="checkbox" checked><span></span>Remember me</label>
+                    <button type="button" id="forgotPasswordButton" class="auth-text-button">Forgot password?</button>
+                </div>
+
+                <button type="submit" id="authButton" class="auth-button">Log in <span>→</span></button>
+                <p id="authMessage" class="auth-message" aria-live="polite"></p>
+            </form>
+
+            <div class="auth-divider"><span>OR</span></div>
+            <button type="button" id="googleAuthButton" class="social-auth-button"><span class="google-mark">G</span>Continue with Google</button>
+            <button type="button" id="appleAuthButton" class="social-auth-button"><span class="apple-mark">●</span>Continue with Apple</button>
+
+            <p id="authCreateAccountPrompt" class="auth-create-account">New to Stylora? <button type="button" id="signupFooterButton" class="auth-text-button">Create an account <span>→</span></button></p>
+            <button id="demoLoginButton" type="button" class="demo-button">Continue in demo mode</button>
+
+            <div class="auth-privacy-note"><span>♧</span><div><strong>Your data is safe with us</strong><small>We value your privacy and security.</small></div></div>
         </div>
-
-        <form id="authForm">
-
-            <div
-                id="nameGroup"
-                class="input-group hidden">
-
-                <label for="authName">
-                    Name
-                </label>
-
-                <input
-                    type="text"
-                    id="authName"
-                    placeholder="Enter your name">
-            </div>
-
-            <div class="input-group">
-
-                <label for="authEmail">
-                    Email
-                </label>
-
-                <input
-                    type="email"
-                    id="authEmail"
-                    placeholder="Enter your email"
-                    required>
-            </div>
-
-            <div class="input-group">
-
-                <label for="authPassword">
-                    Password
-                </label>
-
-                <input
-                    type="password"
-                    id="authPassword"
-                    placeholder="Enter your password"
-                    required>
-            </div>
-
-            <button
-                type="submit"
-                id="authButton"
-                class="auth-button">
-                Login
-            </button>
-
-            <p
-                id="authMessage"
-                class="auth-message">
-            </p>
-
-        </form>
-
-    </div>
-
+    </section>
 </div>
 
 
@@ -135,7 +140,7 @@
             </div>
 
             <div>
-                <h2>STYLE MIRROR</h2>
+                <h2>Stylora</h2>
                 <span>AI Aesthetic Editor</span>
             </div>
 
@@ -143,12 +148,20 @@
 
         <div class="nav-links">
 
-            <a href="#editor">
-                Editor
+            <a href="/" data-app-route="/" id="homeNavLink">
+                Home
             </a>
 
-            <a href="#history">
-                History
+            <a href="/photo-editor" data-app-route="/photo-editor" id="photoNavLink">
+                Photo
+            </a>
+
+            <a href="/video-editor" data-app-route="/video-editor" id="videoNavLink">
+                Video
+            </a>
+
+            <a href="/profile" data-app-route="/profile" id="profileNavLink">
+                Profile
             </a>
 
             <button
@@ -164,71 +177,208 @@
 
     <!-- HERO -->
 
-    <section class="hero">
-
-        <div class="hero-text">
-
-            <div class="badge">
-                ✦ AI POWERED EDITING
-            </div>
-
-            <h1>
-                Your style.<br>
-                <span>Mirrored.</span>
-            </h1>
-
-            <p>
-                Upload a reference image and let STYLE MIRROR
-                understand its colors, lighting, contrast and
-                overall aesthetic.
-            </p>
-
-            <a
-                href="#editor"
-                class="hero-button">
-                Start Creating
-                <span>→</span>
-            </a>
-
-        </div>
-
-
-        <div class="hero-preview">
-
-            <div class="preview-glow"></div>
-
-            <div class="preview-main">
-
-                <div class="preview-placeholder">
-
-                    <div class="preview-symbol">
-                        ✦
+    <section id="homePage" class="app-page dashboard-page" aria-label="Stylora dashboard">
+        <div class="dashboard-main">
+            <header class="dashboard-topbar">
+                <label class="dashboard-search">
+                    <span aria-hidden="true">⌕</span>
+                    <input id="dashboardSearch" type="search" placeholder="Search projects, tools, or templates…" aria-label="Search projects, tools, or templates">
+                    <kbd>/</kbd>
+                </label>
+                <div class="dashboard-top-actions">
+                    <div class="dashboard-notice-wrap">
+                        <button type="button" class="dashboard-icon-button" id="dashboardNotifications" aria-label="Notifications" aria-expanded="false">♧<i></i></button>
+                        <div class="dashboard-popover" id="dashboardNotificationPopover" hidden>
+                            <strong>You’re all caught up</strong>
+                            <p>New projects and export updates will show up here.</p>
+                        </div>
                     </div>
-
-                    <strong>
-                        STYLE MIRROR
-                    </strong>
-
-                    <span>
-                        Your aesthetic, recreated.
-                    </span>
-
+                    <a class="dashboard-profile" id="dashboardProfileButton" href="/profile" data-app-route="/profile" aria-label="Open profile">
+                        <span class="dashboard-avatar">SM</span>
+                        <span><strong id="dashboardUserName">Creator</strong><small>Free plan</small></span>
+                        <span class="dashboard-profile-chevron">⌄</span>
+                    </a>
+                    <button type="button" id="logoutButton" class="logout-button dashboard-logout">Log out</button>
                 </div>
+            </header>
 
+            <div class="dashboard-content">
+                <main class="dashboard-center">
+                    <section class="dashboard-welcome">
+                        <div class="dashboard-welcome-copy">
+                            <span class="dashboard-eyebrow">WELCOME BACK,</span>
+                            <h1><span id="dashboardGreetingName">CREATOR</span> <span aria-hidden="true">👋</span></h1>
+                            <p>Turn your ideas into stunning photos and videos<br class="desktop-break"> with the power of AI.</p>
+                            <div class="dashboard-welcome-actions">
+                                <a href="/photo-editor" data-app-route="/photo-editor">✧ Create</a><span>·</span>
+                                <a href="/photo-editor" data-app-route="/photo-editor">Edit</a><span>·</span>
+                                <a href="/photo-restyle" data-app-route="/photo-restyle">Restyle</a>
+                            </div>
+                        </div>
+                        <div class="dashboard-welcome-art" aria-hidden="true">
+                            <div class="dashboard-art-sparkle sparkle-a">✦</div>
+                            <div class="dashboard-art-sparkle sparkle-b">✧</div>
+                            <div class="dashboard-art-photo dashboard-art-photo-back">
+                                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&amp;fit=crop&amp;w=540&amp;q=80" alt="">
+                            </div>
+                            <div class="dashboard-art-photo dashboard-art-photo-front">
+                                <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&amp;fit=crop&amp;w=600&amp;q=85" alt="">
+                                <span>✧ AI Powered</span>
+                            </div>
+                            <div class="dashboard-art-note">Better<br>Edits<br>Bigger<br>Dreams</div>
+                        </div>
+                    </section>
+
+                    <section class="dashboard-feature-grid" aria-label="Create something new">
+                        <a class="dashboard-feature-card feature-photo" href="/photo-editor" data-app-route="/photo-editor" data-searchable="photo edit retouch enhance">
+                            <span class="dashboard-feature-icon">▧</span>
+                            <span class="dashboard-feature-tag">✧ AI Edit</span>
+                            <div class="dashboard-feature-image">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=crop&amp;w=240&amp;q=75" alt="">
+                                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&amp;fit=crop&amp;w=180&amp;q=75" alt="">
+                            </div>
+                            <strong>Photo</strong>
+                            <p>Edit, enhance and transform your photos with professional tools and AI.</p>
+                            <span class="dashboard-feature-arrow">→</span>
+                        </a>
+                        <a class="dashboard-feature-card feature-video" href="/video-editor" data-app-route="/video-editor" data-searchable="video edit clip timeline">
+                            <span class="dashboard-feature-icon">▣</span>
+                            <span class="dashboard-feature-tag">✧ AI Edit</span>
+                            <div class="dashboard-feature-image">
+                                <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&amp;fit=crop&amp;w=260&amp;q=75" alt="">
+                                <span class="dashboard-image-play">▶</span>
+                            </div>
+                            <strong>Video</strong>
+                            <p>Create stunning videos with advanced editing tools, effects and AI magic.</p>
+                            <span class="dashboard-feature-arrow">→</span>
+                        </a>
+                        <a class="dashboard-feature-card feature-restyle" href="/photo-restyle" data-app-route="/photo-restyle" data-searchable="restyle style transfer presets">
+                            <span class="dashboard-feature-icon">✧</span>
+                            <span class="dashboard-feature-tag">✧ AI Restyle</span>
+                            <div class="dashboard-feature-image">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=crop&amp;w=240&amp;q=75" alt="">
+                                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&amp;fit=crop&amp;w=180&amp;q=75" alt="">
+                            </div>
+                            <strong>Restyle</strong>
+                            <p>Transform your media with AI-powered style transfer and creative presets.</p>
+                            <span class="dashboard-feature-arrow">→</span>
+                        </a>
+                    </section>
+
+                    <section class="dashboard-recent-section">
+                        <div class="dashboard-section-heading">
+                            <h2>Recent Projects</h2>
+                            <a href="/photo-editor" data-app-route="/photo-editor">View all <span>→</span></a>
+                        </div>
+                        <div class="dashboard-recent-grid" id="dashboardRecentProjects">
+                            <a class="dashboard-project-card" href="/photo-editor" data-app-route="/photo-editor" data-searchable="sunset vibes photo edit">
+                                <div class="dashboard-project-image"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&amp;fit=crop&amp;w=480&amp;q=75" alt="Golden-hour seaside landscape"></div>
+                                <div class="dashboard-project-meta"><span>▧ Photo Edit</span><button type="button" aria-label="Sunset Vibes project actions">⋮</button></div>
+                                <strong>Sunset Vibes</strong><small>Sample project · Open photo editor</small>
+                            </a>
+                            <a class="dashboard-project-card" href="/video-editor" data-app-route="/video-editor" data-searchable="travel vlog video edit">
+                                <div class="dashboard-project-image"><img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&amp;fit=crop&amp;w=480&amp;q=75" alt="Mountain lake travel video"></div>
+                                <span class="dashboard-project-play">▶</span>
+                                <div class="dashboard-project-meta"><span>▣ Video Edit</span><button type="button" aria-label="Travel Vlog project actions">⋮</button></div>
+                                <strong>Travel Vlog</strong><small>Sample project · Open video editor</small>
+                            </a>
+                            <a class="dashboard-project-card" href="/photo-restyle" data-app-route="/photo-restyle" data-searchable="cinematic look restyle">
+                                <div class="dashboard-project-image"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&amp;fit=crop&amp;w=480&amp;q=75" alt="Portrait in cinematic city light"></div>
+                                <div class="dashboard-project-meta"><span>✧ Restyle</span><button type="button" aria-label="Cinematic Look project actions">⋮</button></div>
+                                <strong>Cinematic Look</strong><small>Sample project · Open restyle</small>
+                            </a>
+                            <a class="dashboard-project-card" href="/photo-editor" data-app-route="/photo-editor" data-searchable="nature photo edit">
+                                <div class="dashboard-project-image"><img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&amp;fit=crop&amp;w=480&amp;q=75" alt="Mountain scenery"></div>
+                                <div class="dashboard-project-meta"><span>▧ Photo Edit</span><button type="button" aria-label="Nature project actions">⋮</button></div>
+                                <strong>Nature</strong><small>Sample project · Open photo editor</small>
+                            </a>
+                        </div>
+                        <p class="dashboard-search-empty" id="dashboardSearchEmpty" hidden>No matching tools or projects. Try “photo”, “video” or “restyle”.</p>
+                    </section>
+                </main>
+
+                <aside class="dashboard-right-rail" aria-label="Creator tools and insights">
+                    <section class="dashboard-side-card quick-actions-card">
+                        <h2><span>ϟ</span> Quick Actions</h2>
+                        <a href="/photo-editor" data-app-route="/photo-editor"><span>▧</span>Upload Photo <i>→</i></a>
+                        <a href="/video-editor" data-app-route="/video-editor"><span>▣</span>Upload Video <i>→</i></a>
+                        <a href="/photo-restyle" data-app-route="/photo-restyle"><span>✧</span>Try Restyle <i>→</i></a>
+                    </section>
+                    <section class="dashboard-side-card dashboard-stats-card">
+                        <div class="dashboard-side-heading"><h2><span>▥</span> Your Stats</h2><small>All time</small></div>
+                        <div class="dashboard-stats">
+                            <div><strong id="dashboardProjectCount">0</strong><span>Projects</span></div>
+                            <div><strong id="dashboardEditCount">0</strong><span>AI Edits</span></div>
+                            <div><strong id="dashboardRestyleCount">0</strong><span>Restyles</span></div>
+                        </div>
+                    </section>
+                    <section class="dashboard-side-card dashboard-tips-card">
+                        <div class="dashboard-side-heading"><h2><span>♧</span> Pro Tips</h2><a href="/photo-restyle" data-app-route="/photo-restyle">View all <i>→</i></a></div>
+                        <a class="dashboard-tip" href="/photo-restyle" data-app-route="/photo-restyle">
+                            <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&amp;fit=crop&amp;w=180&amp;q=70" alt="">
+                            <span><strong>Try AI Restyle</strong><small>Transform your photos &amp; videos with artistic styles like cinematic, vintage, anime and more.</small></span>
+                        </a>
+                        <div class="dashboard-tip-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+                    </section>
+                    <blockquote class="dashboard-quote">“Good editing isn’t just about changing what you see,<br> it’s about showing what you feel.”<small>— Stylora</small></blockquote>
+                </aside>
             </div>
-
-            <div class="floating-card card-one">
-                <span>COLOR</span>
-                <strong>Matched</strong>
-            </div>
-
-            <div class="floating-card card-two">
-                <span>AI STYLE</span>
-                <strong>Applied</strong>
-            </div>
-
         </div>
+    </section>
 
+    <section id="profilePage" class="app-page profile-page" aria-labelledby="profilePageTitle" hidden>
+        <main class="profile-content">
+            <header class="profile-heading">
+                <div>
+                    <span class="profile-eyebrow">YOUR ACCOUNT</span>
+                    <h1 id="profilePageTitle">Profile</h1>
+                    <p>Manage your personal information and account details.</p>
+                </div>
+                <a class="profile-back-link" href="/" data-app-route="/">← Back to dashboard</a>
+            </header>
+
+            <div class="profile-layout">
+                <section class="profile-card profile-identity-card" aria-label="Account summary">
+                    <div class="profile-identity">
+                        <span class="profile-avatar" id="profileAvatar" aria-hidden="true">SM</span>
+                        <div>
+                            <h2 id="profileDisplayName">Creator</h2>
+                            <p id="profileSummaryEmail">Signed-in account</p>
+                        </div>
+                    </div>
+                    <div class="profile-plan">
+                        <span class="profile-plan-mark">✦</span>
+                        <div><strong>Free plan</strong><small>Your Stylora account</small></div>
+                    </div>
+                </section>
+
+                <section class="profile-card profile-details-card" aria-labelledby="profileDetailsTitle">
+                    <div class="profile-card-heading">
+                        <div><h2 id="profileDetailsTitle">Personal information</h2><p>Update the name shown across your workspace.</p></div>
+                    </div>
+                    <form id="profileForm" class="profile-form">
+                        <label for="profileNameInput">Display name</label>
+                        <input id="profileNameInput" name="displayName" type="text" maxlength="80" autocomplete="name" required>
+                        <label for="profileEmailInput">Email address</label>
+                        <input id="profileEmailInput" name="email" type="email" readonly aria-describedby="profileEmailHelp">
+                        <small id="profileEmailHelp" class="profile-help">Your email address is managed by your sign-in provider.</small>
+                        <div class="profile-form-footer">
+                            <p id="profileSaveMessage" role="status" aria-live="polite"></p>
+                            <button type="submit" class="profile-save-button">Save changes</button>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="profile-card profile-activity-card" aria-label="Your activity">
+                    <h2>Your activity</h2>
+                    <div class="profile-activity-stats">
+                        <div><strong id="profileProjectCount">0</strong><span>Projects</span></div>
+                        <div><strong id="profileEditCount">0</strong><span>AI edits</span></div>
+                        <div><strong id="profileRestyleCount">0</strong><span>Restyles</span></div>
+                    </div>
+                </section>
+            </div>
+        </main>
     </section>
 
 
@@ -236,33 +386,109 @@
 
     <main
         id="editor"
-        class="main-container">
+        class="main-container app-page photo-editor-page"
+        hidden>
+
+        <header class="workspace-toolbar">
+            <a href="/" data-app-route="/" class="workspace-back">← <span>Back</span></a>
+            <input id="photoProjectName" class="project-name-input" value="Untitled photo" aria-label="Photo project name">
+            <div class="workspace-actions">
+                <button type="button" id="photoUndoButton" class="icon-action" title="Undo" aria-label="Undo" disabled>↶</button>
+                <button type="button" id="photoRedoButton" class="icon-action" title="Redo" aria-label="Redo" disabled>↷</button>
+                <button type="button" id="photoTopExportButton" class="workspace-export">⇩ <span>Export Photo</span></button>
+            </div>
+        </header>
+
+        <nav class="ai-mode-switch" data-selection="edit" aria-label="Photo AI mode">
+            <a href="/photo-editor" data-app-route="/photo-editor" class="ai-mode-option active" aria-current="page">✦ AI Edit</a>
+            <a href="/photo-restyle" data-app-route="/photo-restyle" class="ai-mode-option">✧ Restyle</a>
+        </nav>
 
         <div class="editor-header">
 
             <div>
 
-                <span class="section-label">
-                    CREATE
-                </span>
-
                 <h2>
-                    Mirror an aesthetic
+                    Photo Editor
                 </h2>
 
                 <p>
-                    Give STYLE MIRROR two images and
-                    we'll do the rest.
+                    Edit your image, match a reference aesthetic, and fine-tune every detail.
                 </p>
 
             </div>
 
         </div>
 
+        <div class="photo-workbench">
+            <section class="photo-canvas-panel" aria-label="Photo preview">
+                <div class="canvas-toolbar">
+                    <div class="canvas-breadcrumb"><span>CANVAS</span><span id="photoCanvasFileName">No photo loaded</span></div>
+                    <label for="originalImage" class="canvas-upload-button">＋ <span>Add Photo</span></label>
+                </div>
+                <div class="photo-canvas-stage" id="photoCanvasStage">
+                    <img id="photoWorkspacePreview" alt="Photo editing preview" hidden>
+                    <div id="photoCanvasEmpty" class="canvas-empty-state">
+                        <span class="canvas-empty-icon">▧</span>
+                        <strong>Your photo canvas</strong>
+                        <span>Choose a photo below to start editing</span>
+                        <label for="originalImage" class="canvas-empty-upload">Upload photo</label>
+                    </div>
+                    <span class="canvas-state-chip canvas-before">BEFORE</span>
+                    <span id="photoAfterChip" class="canvas-state-chip canvas-after" hidden>AFTER</span>
+                </div>
+                <div class="canvas-filmstrip" aria-label="Project media">
+                    <div class="filmstrip-add">＋<small>Add photo</small></div>
+                    <div id="photoFilmstripStatus" class="filmstrip-empty">Your selected photo will appear here</div>
+                </div>
+            </section>
+
+            <aside class="photo-settings-panel">
+                <div class="settings-tabs" role="tablist" aria-label="Photo editing tools">
+                    <button type="button" class="settings-tab active" data-photo-panel="adjust">Adjust</button>
+                    <button type="button" class="settings-tab" data-photo-panel="presets">Presets</button>
+                    <button type="button" class="settings-tab" data-photo-panel="ai">AI Tools</button>
+                </div>
+                <section class="settings-content" data-photo-panel-content="adjust">
+                    <h3>Light</h3>
+                    <label class="range-control" for="photoExposure"><span>Exposure</span><output id="photoExposureValue">0</output><input id="photoExposure" type="range" min="-50" max="50" value="0"></label>
+                    <label class="range-control" for="photoContrast"><span>Contrast</span><output id="photoContrastValue">0</output><input id="photoContrast" type="range" min="-50" max="50" value="0"></label>
+                    <label class="range-control" for="photoHighlights"><span>Highlights</span><output id="photoHighlightsValue">0</output><input id="photoHighlights" type="range" min="-50" max="50" value="0"></label>
+                    <label class="range-control" for="photoShadows"><span>Shadows</span><output id="photoShadowsValue">0</output><input id="photoShadows" type="range" min="-50" max="50" value="0"></label>
+                    <h3>Color</h3>
+                    <label class="range-control" for="photoSaturation"><span>Saturation</span><output id="photoSaturationValue">0</output><input id="photoSaturation" type="range" min="-50" max="50" value="0"></label>
+                    <label class="range-control" for="photoWarmth"><span>Warmth</span><output id="photoWarmthValue">0</output><input id="photoWarmth" type="range" min="-50" max="50" value="0"></label>
+                    <div class="settings-tool-list">
+                        <button type="button" data-photo-tool="crop">Crop &amp; Resize <span>›</span></button>
+                        <button type="button" data-photo-tool="filters">Filters <span>›</span></button>
+                        <button type="button" data-photo-tool="effects">Effects <span>›</span></button>
+                        <button type="button" data-photo-tool="retouch">Retouch <span>›</span></button>
+                        <button type="button" data-photo-tool="layers">Layers <span>›</span></button>
+                    </div>
+                    <p id="photoToolStatus" class="tool-status" aria-live="polite">Adjustments preview on your canvas.</p>
+                </section>
+                <section class="settings-content" data-photo-panel-content="presets" hidden>
+                    <h3>Presets</h3>
+                    <div class="preset-grid">
+                        <button type="button" data-photo-preset="warm">Warm glow</button>
+                        <button type="button" data-photo-preset="soft">Soft light</button>
+                        <button type="button" data-photo-preset="mono">Monochrome</button>
+                        <button type="button" data-photo-preset="reset">Original</button>
+                    </div>
+                </section>
+                <section class="settings-content" data-photo-panel-content="ai" hidden>
+                    <h3>AI Edit</h3>
+                    <p>Match your photo to a reference image with Stylora.</p>
+                    <button type="button" class="settings-primary" id="photoAiEditButton">✦ Analyze reference &amp; apply</button>
+                    <p class="tool-status">Upload a reference and a photo below to run AI aesthetic matching.</p>
+                </section>
+            </aside>
+        </div>
+
 
         <!-- UPLOAD CARDS -->
 
-        <div class="upload-grid">
+        <div class="upload-grid media-mode" id="photoUploadMode">
 
             <!-- REFERENCE -->
 
@@ -324,7 +550,7 @@
 
                 <p>
                     Choose the photo you want
-                    STYLE MIRROR to edit.
+                    Stylora to edit.
                 </p>
 
                 <label
@@ -348,7 +574,6 @@
             </div>
 
         </div>
-
 
         <!-- GENERATE -->
 
@@ -585,7 +810,7 @@
 
     <!-- FOOTER -->
 
-    <footer class="footer">
+    <footer class="footer home-only">
 
         <div class="footer-brand">
 
@@ -595,7 +820,7 @@
 
             <div>
                 <strong>
-                    STYLE MIRROR
+                    Stylora
                 </strong>
 
                 <span>
@@ -611,11 +836,304 @@
 
     </footer>
 
+    <main id="videoEditorPage" class="video-editor-page app-page" hidden>
+        <header class="workspace-toolbar video-workspace-toolbar">
+            <a href="/" data-app-route="/" class="workspace-back">← <span>Back</span></a>
+            <input id="videoProjectName" class="project-name-input" value="Untitled video" aria-label="Video project name">
+            <div class="workspace-actions">
+                <button type="button" id="videoUndoButton" class="icon-action" title="Undo" aria-label="Undo" disabled>↶</button>
+                <button type="button" id="videoRedoButton" class="icon-action" title="Redo" aria-label="Redo" disabled>↷</button>
+                <button type="button" id="videoExportButton" class="workspace-export">⇩ <span>Export Video</span></button>
+            </div>
+        </header>
+
+        <nav class="ai-mode-switch" data-selection="edit" aria-label="Video AI mode">
+            <a href="/video-editor" data-app-route="/video-editor" class="ai-mode-option active" aria-current="page">✦ AI Edit</a>
+            <a href="/video-restyle" data-app-route="/video-restyle" class="ai-mode-option">✧ Restyle</a>
+        </nav>
+
+        <div class="video-editor-layout">
+            <section class="video-main-column">
+                <div class="video-preview-panel">
+                    <div class="video-preview-toolbar">
+                        <label for="videoUpload" class="canvas-upload-button">＋ <span>Add Video</span></label>
+                        <input id="videoUpload" type="file" accept="video/*" hidden>
+                        <span id="videoFileName" class="canvas-breadcrumb">No video selected</span>
+                        <div class="video-ratio-control">
+                            <label for="videoAspectRatio">Aspect</label>
+                            <select id="videoAspectRatio" aria-label="Video aspect ratio">
+                                <option value="16 / 9">16:9</option>
+                                <option value="1 / 1">1:1</option>
+                                <option value="9 / 16">9:16</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="video-stage" id="videoStage">
+                        <video id="videoPreview" playsinline preload="metadata"></video>
+                        <div id="videoEmptyState" class="video-empty-state">
+                            <span class="canvas-empty-icon">▶</span>
+                            <strong>Your video preview</strong>
+                            <span>Upload a clip to start building your edit</span>
+                            <label for="videoUpload" class="canvas-empty-upload">Choose video</label>
+                        </div>
+                        <div id="videoTitleOverlay" class="video-title-overlay" hidden></div>
+                        <div class="video-controls">
+                            <button type="button" id="videoPlayButton" aria-label="Play video">▶</button>
+                            <span id="videoCurrentTime">00:00</span>
+                            <input id="videoSeek" type="range" min="0" max="1000" value="0" aria-label="Seek video">
+                            <span id="videoDuration">00:00</span>
+                            <button type="button" id="videoMuteButton" aria-label="Mute video">◖</button>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="timeline-panel" aria-label="Multi-track video timeline">
+                    <div class="timeline-toolbar">
+                        <div class="timeline-actions">
+                            <button type="button" id="videoSplitButton">⌁ <span>Split</span></button>
+                            <button type="button" id="videoTrimButton">⌗ <span>Trim</span></button>
+                            <button type="button" id="videoAddTextButton">T <span>Text</span></button>
+                            <button type="button" id="videoAddEffectButton">✧ <span>Effects</span></button>
+                        </div>
+                        <span id="videoTimelineStatus" class="tool-status" aria-live="polite">Upload a clip to populate the timeline.</span>
+                    </div>
+                    <div class="timeline-ruler"><span>00:00</span><span>00:15</span><span>00:30</span><span>00:45</span><span>01:00</span></div>
+                    <div class="timeline-track-row">
+                        <span class="track-icon">▶</span>
+                        <div class="timeline-track" id="videoClipTrack"><div class="timeline-placeholder">Video track</div></div>
+                    </div>
+                    <div class="timeline-track-row">
+                        <span class="track-icon">♫</span>
+                        <label class="timeline-track audio-track" for="videoAudioUpload"><span id="videoAudioTrackLabel">＋ Add audio</span></label>
+                        <input id="videoAudioUpload" type="file" accept="audio/*" hidden>
+                    </div>
+                    <div class="timeline-track-row">
+                        <span class="track-icon">T</span>
+                        <div class="timeline-track title-track" id="videoTitleTrack"><span>＋ Add title</span></div>
+                    </div>
+                    <div class="timeline-track-row">
+                        <span class="track-icon">✧</span>
+                        <div class="timeline-track effect-track" id="videoEffectTrack"><span>＋ Add effect</span></div>
+                    </div>
+                </section>
+            </section>
+
+            <aside class="video-settings-panel">
+                <div class="settings-tabs video-settings-tabs" role="tablist" aria-label="Video editing tools">
+                    <button type="button" class="settings-tab active" data-video-panel="video">Video</button>
+                    <button type="button" class="settings-tab" data-video-panel="audio">Audio</button>
+                    <button type="button" class="settings-tab" data-video-panel="effects">Effects</button>
+                    <button type="button" class="settings-tab" data-video-panel="filters">Filters</button>
+                </div>
+                <section class="settings-content" data-video-panel-content="video">
+                    <h3>Transform</h3>
+                    <label class="range-control" for="videoScale"><span>Scale</span><output id="videoScaleValue">100%</output><input id="videoScale" type="range" min="50" max="150" value="100"></label>
+                    <label class="range-control" for="videoSpeed"><span>Speed</span><output id="videoSpeedValue">1.0×</output><input id="videoSpeed" type="range" min="50" max="200" value="100"></label>
+                    <label class="range-control" for="videoTrimStart"><span>Trim start</span><output id="videoTrimStartValue">0:00</output><input id="videoTrimStart" type="range" min="0" max="1" step="0.1" value="0"></label>
+                    <label class="range-control" for="videoTrimEnd"><span>Trim end</span><output id="videoTrimEndValue">0:01</output><input id="videoTrimEnd" type="range" min="1" max="1" step="0.1" value="1"></label>
+                    <div class="settings-tool-list">
+                        <button type="button" id="videoTransitionsButton">Transitions <span>›</span></button>
+                        <button type="button" id="videoColorButton">Color grading <span>›</span></button>
+                        <button type="button" id="videoLayersButton">Layers <span>›</span></button>
+                        <button type="button" id="videoAiButton">✦ AI Edit &amp; Aesthetic Match <span>›</span></button>
+                    </div>
+                    <label class="title-input-label" for="videoTitleInput">Text &amp; titles</label>
+                    <input id="videoTitleInput" class="title-input" type="text" placeholder="Add a title to your video">
+                </section>
+                <section class="settings-content" data-video-panel-content="audio" hidden>
+                    <h3>Audio</h3>
+                    <label for="videoVolume" class="range-control"><span>Volume</span><output id="videoVolumeValue">100%</output><input id="videoVolume" type="range" min="0" max="100" value="100"></label>
+                    <label class="settings-primary audio-upload" for="videoAudioUpload">＋ Add audio track</label>
+                </section>
+                <section class="settings-content" data-video-panel-content="effects" hidden>
+                    <h3>Effects &amp; transitions</h3>
+                    <div class="preset-grid">
+                        <button type="button" data-video-effect="fade">Fade</button>
+                        <button type="button" data-video-effect="film">Film</button>
+                        <button type="button" data-video-effect="soft">Soft glow</button>
+                        <button type="button" data-video-effect="reset">Original</button>
+                    </div>
+                </section>
+                <section class="settings-content" data-video-panel-content="filters" hidden>
+                    <h3>Color grading</h3>
+                    <label for="videoBrightness" class="range-control"><span>Brightness</span><output id="videoBrightnessValue">100%</output><input id="videoBrightness" type="range" min="50" max="150" value="100"></label>
+                    <label for="videoSaturation" class="range-control"><span>Saturation</span><output id="videoSaturationValue">100%</output><input id="videoSaturation" type="range" min="0" max="200" value="100"></label>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <main id="photoRestylePage" class="restyle-page app-page" hidden>
+        <header class="workspace-toolbar">
+            <a href="/photo-editor" data-app-route="/photo-editor" class="workspace-back">← <span>Photo AI Edit</span></a>
+            <input id="photoRestyleProjectName" class="project-name-input" value="Photo Restyle" aria-label="Photo restyle project name">
+            <div class="workspace-actions">
+                <button type="button" id="photoRestyleUndo" class="icon-action" title="Undo" aria-label="Undo">↶</button>
+                <button type="button" id="photoRestyleRedo" class="icon-action" title="Redo" aria-label="Redo" disabled>↷</button>
+                <button type="button" id="photoRestyleReset" class="workspace-back">Reset</button>
+                <button type="button" id="photoRestyleDownload" class="workspace-export">⇩ <span>Export</span></button>
+            </div>
+        </header>
+
+        <nav class="ai-mode-switch" data-selection="restyle" aria-label="Photo AI mode">
+            <a href="/photo-editor" data-app-route="/photo-editor" class="ai-mode-option">✦ AI Edit</a>
+            <a href="/photo-restyle" data-app-route="/photo-restyle" class="ai-mode-option active" aria-current="page">✧ Restyle</a>
+        </nav>
+
+        <div class="restyle-heading">
+            <div><span class="restyle-eyebrow">✧ AI TRANSFORMATION</span><h1>Restyle your photo</h1><p>Transfer a reference aesthetic while keeping your image at the center.</p></div>
+            <span class="restyle-status-chip">PHOTO RESTYLE</span>
+        </div>
+
+        <div class="restyle-photo-layout">
+            <section class="restyle-workbench">
+                <div class="restyle-comparison" id="photoRestyleComparison">
+                    <article class="restyle-preview-card">
+                        <div class="restyle-preview-label"><span>BEFORE</span><small id="photoRestyleSourceName">Original photo</small></div>
+                        <div class="restyle-preview-media"><img id="photoRestyleBefore" alt="Original photo preview" hidden><label for="photoRestyleSource" class="restyle-upload-placeholder" id="photoRestyleSourcePlaceholder"><span>＋</span><strong>Upload photo</strong><small>Choose the image you want to transform</small></label><span class="restyle-loading-overlay" id="photoRestyleLoading" hidden><span class="restyle-loader"></span><strong>Finding your new look</strong><small>Stylora is applying the reference aesthetic</small></span></div>
+                    </article>
+                    <article class="restyle-preview-card restyle-result-card">
+                        <div class="restyle-preview-label"><span>AFTER</span><small id="photoRestyleResultLabel">Restyle preview</small></div>
+                        <div class="restyle-preview-media"><img id="photoRestyleAfter" alt="Restyled photo preview" hidden><div class="restyle-after-placeholder" id="photoRestyleAfterPlaceholder"><span>✧</span><strong>Your restyle appears here</strong><small>Choose a style and start your transformation</small></div></div>
+                    </article>
+                </div>
+                <div class="restyle-input-strip">
+                    <label for="photoRestyleSource" class="restyle-upload-tile"><span>▧</span><strong>Upload Photo</strong><small id="photoRestyleSourceFileName">No photo selected</small></label>
+                    <input type="file" id="photoRestyleSource" accept="image/*" hidden>
+                    <label for="photoRestyleReference" class="restyle-upload-tile reference-tile"><span>✧</span><strong>Reference Style Image</strong><small id="photoRestyleReferenceFileName">No reference selected</small></label>
+                    <input type="file" id="photoRestyleReference" accept="image/*" hidden>
+                </div>
+            </section>
+
+            <aside class="restyle-controls-panel">
+                <section class="restyle-control-section">
+                    <div class="restyle-section-title"><div><span class="restyle-eyebrow">01 / STYLE</span><h2>Choose a direction</h2></div><span class="restyle-count">12 looks</span></div>
+                    <div class="restyle-preset-grid" id="photoRestylePresets">
+                        <button type="button" class="restyle-preset active" data-restyle-preset="cinematic"><span class="preset-swatch swatch-cinematic"></span><strong>Cinematic</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="film"><span class="preset-swatch swatch-film"></span><strong>Film</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="vintage"><span class="preset-swatch swatch-vintage"></span><strong>Vintage</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="minimal"><span class="preset-swatch swatch-minimal"></span><strong>Minimal</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="moody"><span class="preset-swatch swatch-moody"></span><strong>Moody</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="warm"><span class="preset-swatch swatch-warm"></span><strong>Warm</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="cool"><span class="preset-swatch swatch-cool"></span><strong>Cool</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="dreamy"><span class="preset-swatch swatch-dreamy"></span><strong>Dreamy</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="luxury"><span class="preset-swatch swatch-luxury"></span><strong>Luxury</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="street"><span class="preset-swatch swatch-street"></span><strong>Street</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="anime"><span class="preset-swatch swatch-anime"></span><strong>Anime-inspired</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="editorial"><span class="preset-swatch swatch-editorial"></span><strong>Editorial</strong></button>
+                    </div>
+                    <label class="restyle-field-label" for="photoRestylePrompt">AI Restyle prompt</label>
+                    <textarea id="photoRestylePrompt" class="restyle-prompt" rows="3">Apply the visual style of the reference image while preserving the original subject, face, composition, and important details.</textarea>
+                </section>
+
+                <section class="restyle-control-section restyle-tuning-section">
+                    <div class="restyle-section-title"><div><span class="restyle-eyebrow">02 / TUNING</span><h2>Fine-tune the result</h2></div></div>
+                    <label class="range-control" for="photoRestyleStrength"><span>Style strength</span><output id="photoRestyleStrengthValue">72%</output><input id="photoRestyleStrength" type="range" min="0" max="100" value="72"></label>
+                    <label class="range-control" for="photoRestyleColor"><span>Color intensity</span><output id="photoRestyleColorValue">65%</output><input id="photoRestyleColor" type="range" min="0" max="100" value="65"></label>
+                    <label class="range-control" for="photoRestyleLighting"><span>Lighting match</span><output id="photoRestyleLightingValue">60%</output><input id="photoRestyleLighting" type="range" min="0" max="100" value="60"></label>
+                    <label class="restyle-toggle"><span><strong>Preserve face</strong><small>Keep facial identity unchanged</small></span><input id="photoPreserveFace" type="checkbox" checked><i></i></label>
+                    <label class="restyle-toggle"><span><strong>Preserve composition</strong><small>Keep framing and subject placement</small></span><input id="photoPreserveComposition" type="checkbox" checked><i></i></label>
+                </section>
+
+                <div class="restyle-action-area">
+                    <button id="photoRestyleButton" type="button" class="restyle-primary-button">✧ Restyle Photo <span>→</span></button>
+                    <p id="photoRestyleStatus" class="restyle-live-status" aria-live="polite">Upload a photo and reference to begin.</p>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <main id="videoRestylePage" class="restyle-page app-page" hidden>
+        <header class="workspace-toolbar">
+            <a href="/video-editor" data-app-route="/video-editor" class="workspace-back">← <span>Video AI Edit</span></a>
+            <input id="videoRestyleProjectName" class="project-name-input" value="Video Restyle" aria-label="Video restyle project name">
+            <div class="workspace-actions">
+                <button type="button" id="videoRestyleUndo" class="icon-action" title="Undo" aria-label="Undo">↶</button>
+                <button type="button" id="videoRestyleRedo" class="icon-action" title="Redo" aria-label="Redo" disabled>↷</button>
+                <button type="button" id="videoRestyleReset" class="workspace-back">Reset</button>
+                <button type="button" id="videoRestyleExport" class="workspace-export">⇩ <span>Export Video</span></button>
+            </div>
+        </header>
+
+        <nav class="ai-mode-switch" data-selection="restyle" aria-label="Video AI mode">
+            <a href="/video-editor" data-app-route="/video-editor" class="ai-mode-option">✦ AI Edit</a>
+            <a href="/video-restyle" data-app-route="/video-restyle" class="ai-mode-option active" aria-current="page">✧ Restyle</a>
+        </nav>
+
+        <div class="restyle-heading">
+            <div><span class="restyle-eyebrow">✧ AI TRANSFORMATION</span><h1>Restyle your video</h1><p>Carry a visual direction across motion, color, and light.</p></div>
+            <span class="restyle-status-chip">VIDEO RESTYLE</span>
+        </div>
+
+        <div class="video-restyle-layout">
+            <section class="restyle-workbench video-restyle-workbench">
+                <div class="video-restyle-comparison">
+                    <article class="restyle-preview-card">
+                        <div class="restyle-preview-label"><span>BEFORE</span><small id="videoRestyleSourceName">Original clip</small></div>
+                        <div class="restyle-preview-media video-restyle-media"><video id="videoRestyleBefore" playsinline controls muted hidden></video><label for="videoRestyleSource" class="restyle-upload-placeholder" id="videoRestyleSourcePlaceholder"><span>＋</span><strong>Upload Video</strong><small>Choose a clip to restyle</small></label><span class="restyle-loading-overlay" id="videoRestyleLoading" hidden><span class="restyle-loader"></span><strong>Preparing style preview</strong><small>Applying your selected visual direction</small></span></div>
+                    </article>
+                    <article class="restyle-preview-card restyle-result-card">
+                        <div class="restyle-preview-label"><span>AFTER</span><small id="videoRestyleAfterLabel">Restyle preview</small></div>
+                        <div class="restyle-preview-media video-restyle-media"><video id="videoRestyleAfter" playsinline controls muted hidden></video><div id="videoRestyleAfterPlaceholder" class="restyle-after-placeholder"><span>✧</span><strong>Your styled clip appears here</strong><small>Choose a preset and start your transformation</small></div></div>
+                    </article>
+                </div>
+                <div class="restyle-input-strip">
+                    <label for="videoRestyleSource" class="restyle-upload-tile"><span>▶</span><strong>Upload Video</strong><small id="videoRestyleSourceFileName">No video selected</small></label>
+                    <input type="file" id="videoRestyleSource" accept="video/*" hidden>
+                    <label for="videoRestyleReference" class="restyle-upload-tile reference-tile"><span>✧</span><strong>Reference Image or Style Video</strong><small id="videoRestyleReferenceFileName">No reference selected</small></label>
+                    <input type="file" id="videoRestyleReference" accept="image/*,video/*" hidden>
+                </div>
+                <div class="restyle-timeline-preview"><div class="restyle-timeline-head"><strong>Timeline preview</strong><span id="videoRestyleDuration">00:00</span></div><input id="videoRestyleSeek" type="range" min="0" max="1000" value="0" aria-label="Restyle timeline position"><div class="restyle-timeline-strip" id="videoRestyleTimeline"><span>Upload a clip to preview the timeline</span></div></div>
+            </section>
+
+            <aside class="restyle-controls-panel">
+                <section class="restyle-control-section">
+                    <div class="restyle-section-title"><div><span class="restyle-eyebrow">01 / STYLE</span><h2>Choose a direction</h2></div></div>
+                    <div class="restyle-preset-grid" id="videoRestylePresets">
+                        <button type="button" class="restyle-preset active" data-restyle-preset="cinematic"><span class="preset-swatch swatch-cinematic"></span><strong>Cinematic</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="film"><span class="preset-swatch swatch-film"></span><strong>Film</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="vintage"><span class="preset-swatch swatch-vintage"></span><strong>Vintage</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="minimal"><span class="preset-swatch swatch-minimal"></span><strong>Minimal</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="moody"><span class="preset-swatch swatch-moody"></span><strong>Moody</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="warm"><span class="preset-swatch swatch-warm"></span><strong>Warm</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="cool"><span class="preset-swatch swatch-cool"></span><strong>Cool</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="dreamy"><span class="preset-swatch swatch-dreamy"></span><strong>Dreamy</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="luxury"><span class="preset-swatch swatch-luxury"></span><strong>Luxury</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="street"><span class="preset-swatch swatch-street"></span><strong>Street</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="anime"><span class="preset-swatch swatch-anime"></span><strong>Anime-inspired</strong></button>
+                        <button type="button" class="restyle-preset" data-restyle-preset="editorial"><span class="preset-swatch swatch-editorial"></span><strong>Editorial</strong></button>
+                    </div>
+                    <label class="restyle-field-label" for="videoRestylePrompt">AI Restyle prompt</label>
+                    <textarea id="videoRestylePrompt" class="restyle-prompt" rows="3">Apply the chosen visual style while preserving the subject, movement, composition, and important details.</textarea>
+                </section>
+
+                <section class="restyle-control-section restyle-tuning-section">
+                    <div class="restyle-section-title"><div><span class="restyle-eyebrow">02 / TUNING</span><h2>Fine-tune the result</h2></div></div>
+                    <label class="range-control" for="videoRestyleStrength"><span>Style strength</span><output id="videoRestyleStrengthValue">70%</output><input id="videoRestyleStrength" type="range" min="0" max="100" value="70"></label>
+                    <label class="range-control" for="videoRestyleColor"><span>Color intensity</span><output id="videoRestyleColorValue">65%</output><input id="videoRestyleColor" type="range" min="0" max="100" value="65"></label>
+                    <label class="range-control" for="videoRestyleLighting"><span>Lighting match</span><output id="videoRestyleLightingValue">60%</output><input id="videoRestyleLighting" type="range" min="0" max="100" value="60"></label>
+                    <label class="restyle-toggle"><span><strong>Preserve subject</strong><small>Keep the main subject recognizable</small></span><input id="videoPreserveSubject" type="checkbox" checked><i></i></label>
+                    <label class="restyle-toggle"><span><strong>Preserve motion</strong><small>Keep movement and timing intact</small></span><input id="videoPreserveMotion" type="checkbox" checked><i></i></label>
+                    <label class="restyle-toggle"><span><strong>Preserve composition</strong><small>Keep framing and placement</small></span><input id="videoPreserveComposition" type="checkbox" checked><i></i></label>
+                    <div class="restyle-scope-control" role="group" aria-label="Apply restyle scope">
+                        <label><input type="radio" name="videoRestyleScope" value="all" checked><span>Entire video</span></label>
+                        <label><input type="radio" name="videoRestyleScope" value="clip"><span>Selected clip</span></label>
+                    </div>
+                    <p class="restyle-engine-note">Local preview applies the chosen look in-browser. AI video transformation requires a connected processing service.</p>
+                </section>
+                <div class="restyle-action-area">
+                    <button id="videoRestyleButton" type="button" class="restyle-primary-button">✧ Restyle Video <span>→</span></button>
+                    <p id="videoRestyleStatus" class="restyle-live-status" aria-live="polite">Upload a video and choose a style to preview.</p>
+                </div>
+            </aside>
+        </div>
+    </main>
+
 </div>
 
 
-<script src="{% static 'style_mirror/app.js' %}"></script>
-```
+<script src="{% static 'style_mirror/app.js' %}?v=20261002-auth2"></script>
+<script src="{% static 'style_mirror/restyle.js' %}?v=20261002-auth2"></script>
 
 </body>
 
